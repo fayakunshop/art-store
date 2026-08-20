@@ -1,0 +1,367 @@
+/* =========================================================================
+   DESIGN TOKENS
+   Change colors/fonts/spacing HERE and they update everywhere on the site.
+   This is the first place to look when you want to personalize things.
+   ========================================================================= */
+:root {
+
+  /* ---- COLORS ----
+     A "stationery drawer" palette: parchment paper, ink, wax-seal red,
+     a botanical sage, and a thin gold like twine or foil.
+     Try swapping just --wax or --sage first to see how much one accent
+     color changes the feel of the whole page. */
+  --paper: #F1EDE1;        /* main background, like uncoated paper stock */
+  --paper-deep: #E7E1D0;   /* slightly darker paper, for contrast sections */
+  --ink: #262620;          /* main text color, warm near-black */
+  --ink-soft: #5B5A4E;     /* secondary text, softer gray-brown */
+  --wax: #A63D33;          /* wax-seal red — buttons, dots, accents */
+  --wax-dark: #7E2E27;     /* pressed/hover state for wax red */
+  --sage: #7C8B6F;         /* botanical green — links, small accents */
+  --gold: #B8935A;         /* thin rule lines, like twine or foil */
+  --card-bg: #FBF9F3;      /* card / form background, lighter than paper */
+
+  /* ---- FONTS ----
+     display = big headlines. body = paragraphs & nav. script = handwriting
+     accent, used sparingly (currently just the welcome message). */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Karla", Helvetica, Arial, sans-serif;
+  --font-script: "Caveat", cursive;
+
+  /* ---- SPACING ----
+     One shared scale so spacing stays consistent. Reuse these instead of
+     one-off pixel values when you add new sections. */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+
+  /* ---- SHAPE ---- */
+  --radius: 6px;
+}
+
+/* =========================================================================
+   RESET / BASE
+   A few basics so different browsers behave consistently.
+   ========================================================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--sage);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Visible keyboard focus for accessibility — don't remove this */
+:focus-visible {
+  outline: 2px solid var(--wax);
+  outline-offset: 2px;
+}
+
+/* Utility class: hides text visually but keeps it for screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+
+/* =========================================================================
+   HEADER  (logo + nav + welcome message — reused on every page)
+   ========================================================================= */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+
+  /* Thin gold "twine" rule under the whole header block */
+  border-bottom: 1px solid var(--gold);
+}
+
+.logo {
+  height: 90px;         /* adjust to fit your actual logo's proportions */
+  width: auto;
+  margin-bottom: var(--space-sm);
+}
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.main-nav a {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: var(--wax);
+  text-decoration: none;
+}
+
+.heart-divider {
+  height: 16px;         /* small — it's a divider, not an illustration */
+  width: auto;
+}
+
+.welcome-msg {
+  font-family: var(--font-script);
+  font-size: 1.5rem;
+  color: var(--wax);
+  margin: 0;
+}
+
+
+/* =========================================================================
+   CAROUSEL
+   Three "postcard" slides. Only the slide with .is-active shows;
+   script.js swaps which slide has that class.
+   ========================================================================= */
+.carousel {
+  position: relative;
+  max-width: 1100px;
+  margin: var(--space-lg) auto;
+  padding: 0 var(--space-sm);
+}
+
+.carousel-track {
+  position: relative;
+  aspect-ratio: 16 / 9;      /* keeps a consistent shape across slides */
+  overflow: hidden;
+  border-radius: var(--radius);
+
+  /* The "postcard" signature look: a dashed inset border like stamp
+     perforation, offset from the real edge. Adjust or remove freely. */
+  outline: 2px dashed var(--gold);
+  outline-offset: 8px;
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.carousel-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  max-width: 480px;
+  margin: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(38, 38, 32, 0.72);   /* --ink at 72% opacity */
+  color: var(--paper);
+  border-radius: var(--radius);
+}
+
+.slide-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 var(--space-xs);
+}
+
+.slide-headline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  margin: 0 0 var(--space-sm);
+}
+
+.slide-button {
+  display: inline-block;
+  padding: 0.5rem 1.1rem;
+  background: var(--wax);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+}
+
+.slide-button:hover,
+.slide-button:focus-visible {
+  background: var(--wax-dark);
+  text-decoration: none;
+}
+
+/* Prev / Next arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--card-bg);
+  border: 1px solid var(--gold);
+  color: var(--ink);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.carousel-arrow.prev { left: 0; }
+.carousel-arrow.next { right: 0; }
+
+.carousel-arrow:hover,
+.carousel-arrow:focus-visible {
+  background: var(--wax);
+  color: var(--paper);
+}
+
+/* Dot indicators, drawn to look like tiny wax seals */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: radial-gradient(circle at 35% 30%, #C2564A, var(--wax) 60%, var(--wax-dark) 100%);
+  opacity: 0.4;
+}
+
+.dot.is-active {
+  opacity: 1;
+}
+
+
+/* =========================================================================
+   NEWSLETTER  (reused on every page, at the bottom)
+   ========================================================================= */
+.newsletter {
+  background: var(--paper-deep);
+  border-top: 1px solid var(--gold);
+  padding: var(--space-lg) var(--space-sm);
+}
+
+.newsletter-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newsletter-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin: 0 0 var(--space-xs);
+}
+
+.newsletter-sub {
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-sm);
+}
+
+.newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: center;
+}
+
+.newsletter-form input[type="email"] {
+  flex: 1 1 240px;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.wax-button {
+  padding: 0.65rem 1.3rem;
+  background: var(--wax);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.wax-button:hover,
+.wax-button:focus-visible {
+  background: var(--wax-dark);
+}
+
+.newsletter-footnote {
+  margin-top: var(--space-md);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+
+/* =========================================================================
+   RESPONSIVE
+   One breakpoint is enough for a page this simple. Adjust as you add
+   more sections/pages.
+   ========================================================================= */
+@media (max-width: 600px) {
+  .logo { height: 64px; }
+  .welcome-msg { font-size: 1.2rem; }
+  .slide-overlay { max-width: 90%; }
+  .carousel-arrow { width: 32px; height: 32px; }
+}
+
+/* Respect users who've asked their OS/browser to reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-slide {
+    transition: none;
+  }
+}

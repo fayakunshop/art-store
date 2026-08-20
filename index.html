@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Your Art Shop</title>
+  <meta name="description" content="Handmade art, mailed with love. Shop original pieces, join the mail club, and find a gift that means something.">
+
+  <!--
+    FONTS
+    We're using three Google Fonts, each with its own job:
+    - Fraunces: the display/headline serif. Has personality, feels a bit "hand set" like letterpress type.
+    - Karla: the body text font. Clean and easy to read for paragraphs, nav, buttons.
+    - Caveat: a handwriting-style script, used ONLY in small doses (like your welcome message)
+      to echo the hand-drawn heart in your logo art.
+    To change fonts later: swap the font names in this link AND in the CSS variables
+    at the top of styles.css (--font-display, --font-body, --font-script).
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,500&family=Karla:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+  <!-- Our own stylesheet. All colors, fonts, spacing live here. -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       HEADER
+       This whole block (logo + nav + welcome message) is meant to be reused
+       on EVERY page of your site. When you build about.html, shop.html, etc.,
+       copy everything between <header> and </header> into those pages too.
+       Later, if this gets tedious to keep in sync, ask me about Netlify's
+       "include" tricks or a simple JS include — but for now, copy/paste is
+       the simplest thing to understand and edit.
+  ======================================================================= -->
+  <header class="site-header">
+
+    <!-- LOGO
+         Use a transparent PNG (or SVG) so it sits on top of the page background
+         with no white box around it. Replace the src with your real logo file. -->
+    <a href="index.html" class="logo-link">
+      <img src="images/logo.png" alt="Your Art Shop logo" class="logo">
+    </a>
+
+    <!-- NAV LABELS
+         Each link is separated by your hand-drawn heart PNG (also transparent).
+         Add/remove <a> + heart pairs as you add pages. Keep a heart BETWEEN
+         labels, not after the last one, so it reads as a divider, not decoration. -->
+    <nav class="main-nav" aria-label="Main">
+      <a href="index.html">Shop</a>
+      <img src="images/heart.png" alt="" class="heart-divider" aria-hidden="true">
+
+      <a href="about.html">About</a>
+      <img src="images/heart.png" alt="" class="heart-divider" aria-hidden="true">
+
+      <a href="mail-club.html">Mail Club</a>
+      <img src="images/heart.png" alt="" class="heart-divider" aria-hidden="true">
+
+      <a href="cause-quiz.html">Cause Quiz</a>
+      <img src="images/heart.png" alt="" class="heart-divider" aria-hidden="true">
+
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- WELCOME MESSAGE
+         Short, friendly, in the handwriting-style font. Edit the wording freely —
+         it's just plain text. -->
+    <p class="welcome-msg">Welcome to my shop — handmade art, mailed with love.</p>
+
+  </header>
+
+
+  <!-- ======================================================================
+       CAROUSEL
+       Three "postcard" style slides. Each one is a big image with a short
+       overlay message and a button. This is homepage-only — it does NOT
+       need to be copied to other pages.
+
+       HOW IT WORKS:
+       - Only one .carousel-slide has the class "is-active" at a time; that's
+         the CSS rule that makes it visible (see styles.css, search "is-active").
+       - The Prev/Next buttons and the three dots below are wired up in script.js.
+       - To add a 4th slide: copy one whole <div class="carousel-slide">...</div>
+         block, edit its content, and add one more <button class="dot"> below.
+  ======================================================================= -->
+  <section class="carousel" aria-label="Featured products">
+    <div class="carousel-track">
+
+      <!-- Slide 1: Mail Club -->
+      <div class="carousel-slide is-active">
+        <img src="images/carousel-wax-letters.jpg" alt="A stack of hand wax-sealed letters" class="slide-img">
+        <div class="slide-overlay">
+          <p class="slide-eyebrow">Mail Club</p>
+          <h2 class="slide-headline">Save on my art — join the mail club!</h2>
+          <a href="mail-club.html" class="slide-button">Join the club</a>
+        </div>
+      </div>
+
+      <!-- Slide 2: Cause Quiz -->
+      <div class="carousel-slide">
+        <img src="images/carousel-cause-quiz.jpg" alt="Original artwork representing different causes" class="slide-img">
+        <div class="slide-overlay">
+          <p class="slide-eyebrow">Art for a Cause</p>
+          <h2 class="slide-headline">Buy art for a cause. Take the quiz to find yours.</h2>
+          <a href="cause-quiz.html" class="slide-button">Take the quiz</a>
+        </div>
+      </div>
+
+      <!-- Slide 3: Giftables -->
+      <div class="carousel-slide">
+        <img src="images/carousel-giftables.jpg" alt="Personalized name sticker art, gift-wrapped" class="slide-img">
+        <div class="slide-overlay">
+          <p class="slide-eyebrow">Giftables</p>
+          <h2 class="slide-headline">Buy a gift for someone you love — even a personalized name sticker.</h2>
+          <a href="shop.html?category=giftables" class="slide-button">Shop gifts</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Prev / Next arrows -->
+    <button class="carousel-arrow prev" aria-label="Previous slide">&#8592;</button>
+    <button class="carousel-arrow next" aria-label="Next slide">&#8594;</button>
+
+    <!-- Dot indicators, styled like little wax seals in styles.css -->
+    <div class="carousel-dots">
+      <button class="dot is-active" aria-label="Show slide 1"></button>
+      <button class="dot" aria-label="Show slide 2"></button>
+      <button class="dot" aria-label="Show slide 3"></button>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       NEWSLETTER
+       This block is also meant to be reused on every page — copy it into
+       your other pages' footers too, same as the header.
+
+       NETLIFY FORMS: since you're hosting on Netlify, the easiest way to
+       collect signups with NO backend code is Netlify's built-in form
+       handling. The two attributes that turn this on are:
+         data-netlify="true"   and   name="newsletter"
+       Netlify detects this automatically when it deploys the site, and
+       submissions show up in your Netlify dashboard under Forms.
+       (If you'd rather send signups to Mailchimp/Flodesk/etc. instead,
+       just say so and we'll swap the form action.)
+  ======================================================================= -->
+  <footer class="newsletter">
+    <div class="newsletter-inner">
+      <h2 class="newsletter-heading">Get a little mail from me</h2>
+      <p class="newsletter-sub">New pieces, mail club perks, and the occasional wax-sealed surprise. No spam, ever.</p>
+
+      <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true">
+        <!-- Hidden input required by Netlify so it knows which form this is -->
+        <input type="hidden" name="form-name" value="newsletter">
+
+        <label for="newsletter-email" class="visually-hidden">Email address</label>
+        <input
+          type="email"
+          id="newsletter-email"
+          name="email"
+          placeholder="you@example.com"
+          required
+        >
+        <button type="submit" class="wax-button">Sign up</button>
+      </form>
+
+      <p class="newsletter-footnote">&copy; <span id="year"></span> Your Art Shop. Made by hand.</p>
+    </div>
+  </footer>
+
+  <!-- Carousel + small helper behavior lives here -->
+  <script src="script.js"></script>
+</body>
+</html>
